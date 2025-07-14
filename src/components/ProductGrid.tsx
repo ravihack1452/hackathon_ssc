@@ -17,7 +17,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
     {
       id: '1',
       name: 'Tata I-Shakti Cooking Soda',
-      store: 'Local Store',
+      store: 'Grocery Mart',
       weight: '100 g',
       price: 20,
       originalPrice: null,
@@ -27,7 +27,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
     {
       id: '2',
       name: 'Aashirvaad Iodized Salt',
-      store: 'Ganesh Kirana',
+      store: 'Grocery Mart',
       weight: '1 kg',
       price: 24,
       originalPrice: 28,
@@ -37,7 +37,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
     {
       id: '3',
       name: 'Tata Iodised Crystal Salt',
-      store: 'Ganesh Kirana',
+      store: 'Grocery Mart',
       weight: '1 kg',
       price: 21,
       originalPrice: 22,
@@ -47,7 +47,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
     {
       id: '4',
       name: 'Tata Himalayan Rock Salt',
-      store: 'Local Store',
+      store: 'Grocery Mart',
       weight: '1 kg',
       price: 109,
       originalPrice: 120,
@@ -57,7 +57,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
     {
       id: '5',
       name: 'Vedaka Fenugreek (Methi)',
-      store: 'Spice Corner',
+      store: 'Spice Store',
       weight: '200 g',
       price: 33,
       originalPrice: 60,
@@ -67,7 +67,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
     {
       id: '6',
       name: 'Vedaka Black Pepper Corn',
-      store: 'Spice Corner',
+      store: 'Spice Store',
       weight: '100 g',
       price: 114,
       originalPrice: 165,
@@ -77,7 +77,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
     {
       id: '7',
       name: 'Fortune Sunlite Sunflower Oil',
-      store: 'Oil Depot',
+      store: 'Oil Store',
       weight: '5 L',
       price: 718,
       originalPrice: 930,
@@ -87,7 +87,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
     {
       id: '8',
       name: 'Sunpure Refined Oil',
-      store: 'Oil Depot',
+      store: 'Oil Store',
       weight: '5 L',
       price: 745,
       originalPrice: 850,

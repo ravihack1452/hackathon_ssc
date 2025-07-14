@@ -40,7 +40,9 @@ export const OrderTracking: React.FC<OrderTrackingProps> = ({
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white border-b px-4 py-4">
-        <h1 className="text-xl font-bold text-gray-900">Track Order</h1>
+        <h1 className="text-xl font-bold text-gray-900">
+          amazon <span className="text-blue-600 font-normal italic">now</span>
+        </h1>
         <p className="text-sm text-gray-600">Order ID: {orderDetails.orderId}</p>
       </div>
 
@@ -64,49 +66,56 @@ export const OrderTracking: React.FC<OrderTrackingProps> = ({
           </div>
 
           {/* Progress Bar */}
-          <div className="relative">
-            <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-gray-200"></div>
-            <div 
-              className="absolute left-4 top-0 w-0.5 bg-green-500 transition-all duration-1000"
-              style={{ height: `${(currentStatus / 3) * 100}%` }}
-            ></div>
-            
-            <div className="space-y-6">
+          <div className="mb-6">
+            {/* Horizontal Progress Bar */}
+            <div className="flex items-center justify-between mb-4">
               {trackingSteps.map((step, index) => {
                 const IconComponent = step.icon;
                 const isCompleted = index <= currentStatus;
                 const isCurrent = index === currentStatus;
                 
                 return (
-                  <div key={step.id} className="flex items-start space-x-4">
-                    <div className={`relative z-10 flex items-center justify-center w-8 h-8 rounded-full ${
+                  <div key={step.id} className="flex flex-col items-center flex-1">
+                    <div className={`flex items-center justify-center w-10 h-10 rounded-full mb-2 ${
                       isCompleted ? 'bg-green-500' : 'bg-gray-200'
                     }`}>
-                      <IconComponent className={`h-4 w-4 ${
+                      <IconComponent className={`h-5 w-5 ${
                         isCompleted ? 'text-white' : 'text-gray-500'
                       }`} />
                     </div>
-                    <div className="flex-1">
-                      <h4 className={`font-medium ${
-                        isCompleted ? 'text-gray-900' : 'text-gray-500'
-                      }`}>
-                        {step.title}
-                      </h4>
-                      <p className={`text-sm ${
-                        isCompleted ? 'text-gray-600' : 'text-gray-400'
-                      }`}>
-                        {step.description}
-                      </p>
-                      {isCurrent && (
-                        <div className="flex items-center space-x-1 mt-1">
-                          <Clock className="h-3 w-3 text-blue-500" />
-                          <span className="text-xs text-blue-500">In progress</span>
-                        </div>
-                      )}
-                    </div>
+                    <h4 className={`text-xs font-medium text-center ${
+                      isCompleted ? 'text-gray-900' : 'text-gray-500'
+                    }`}>
+                      {step.title}
+                    </h4>
+                    {isCurrent && (
+                      <div className="flex items-center space-x-1 mt-1">
+                        <Clock className="h-3 w-3 text-blue-500" />
+                        <span className="text-xs text-blue-500">In progress</span>
+                      </div>
+                    )}
                   </div>
                 );
               })}
+            </div>
+            
+            {/* Progress Line */}
+            <div 
+              className="relative h-2 bg-gray-200 rounded-full mx-8"
+            ></div>
+            <div 
+              className="absolute top-0 left-8 h-2 bg-green-500 rounded-full transition-all duration-1000"
+              style={{ width: `calc(${(currentStatus / 3) * 100}% - 4rem)` }}
+            ></div>
+          </div>
+          
+          {/* Current Status Description */}
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+              <p className="text-blue-800 font-medium">
+                {trackingSteps[currentStatus]?.description || 'Processing your order...'}
+              </p>
             </div>
           </div>
         </div>

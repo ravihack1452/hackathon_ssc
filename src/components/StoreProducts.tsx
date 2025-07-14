@@ -20,7 +20,7 @@ export const StoreProducts: React.FC<StoreProductsProps> = ({
   const getStoreData = (storeId: string) => {
     const storeData: { [key: string]: any } = {
       'zudio': {
-        name: 'Zudio',
+        name: 'Fashion Store',
         category: 'Fashion & Apparel',
         deliveryTime: '15 min',
         products: [
@@ -47,7 +47,7 @@ export const StoreProducts: React.FC<StoreProductsProps> = ({
         ]
       },
       'nandini': {
-        name: 'Nandini Dairy',
+        name: 'Fresh Dairy',
         category: 'Dairy Products',
         deliveryTime: '10 min',
         products: [
@@ -74,7 +74,7 @@ export const StoreProducts: React.FC<StoreProductsProps> = ({
         ]
       },
       'ganesh-kirana': {
-        name: 'Ganesh Kirana Store',
+        name: 'Grocery Mart',
         category: 'Grocery & Essentials',
         deliveryTime: '18 min',
         products: [
@@ -101,7 +101,7 @@ export const StoreProducts: React.FC<StoreProductsProps> = ({
         ]
       },
       'book-palace': {
-        name: 'Book Palace',
+        name: 'Stationery Hub',
         category: 'Books & Stationery',
         deliveryTime: '14 min',
         products: [

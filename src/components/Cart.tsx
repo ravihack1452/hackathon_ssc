@@ -28,7 +28,12 @@ export const Cart: React.FC<CartProps> = ({
           <button onClick={onBack} className="p-1">
             <ArrowLeft className="h-6 w-6 text-gray-600" />
           </button>
-          <h1 className="text-xl font-bold text-gray-900">Your Cart</h1>
+          <div>
+            <h1 className="text-xl font-bold text-gray-900">
+              amazon <span className="text-blue-600 font-normal italic">now</span>
+            </h1>
+            <p className="text-sm text-gray-600">Your Cart</p>
+          </div>
         </div>
       </div>
 

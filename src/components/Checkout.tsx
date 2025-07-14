@@ -64,7 +64,12 @@ export const Checkout: React.FC<CheckoutProps> = ({
           <button onClick={onBack} className="p-1">
             <ArrowLeft className="h-6 w-6 text-gray-600" />
           </button>
-          <h1 className="text-xl font-bold text-gray-900">Checkout</h1>
+          <div>
+            <h1 className="text-xl font-bold text-gray-900">
+              amazon <span className="text-blue-600 font-normal italic">now</span>
+            </h1>
+            <p className="text-sm text-gray-600">Checkout</p>
+          </div>
         </div>
       </div>
 
@@ -103,18 +108,15 @@ export const Checkout: React.FC<CheckoutProps> = ({
             <h3 className="font-bold text-gray-900">Delivery Time</h3>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            {timeSlots.map((slot) => (
-              <label key={slot.id} className="flex items-center space-x-2 cursor-pointer">
-                <input
-                  type="radio"
-                  name="timeSlot"
-                  value={slot.id}
-                  checked={selectedTimeSlot === slot.id}
-                  onChange={(e) => setSelectedTimeSlot(e.target.value)}
-                />
-                <span className="text-sm text-gray-900">{slot.label}</span>
-              </label>
-            ))}
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+              <div className="flex items-center space-x-2">
+                <Clock className="h-5 w-5 text-green-600" />
+                <div>
+                  <h4 className="font-medium text-green-800">Express Delivery</h4>
+                  <p className="text-sm text-green-600">Your order will be delivered ASAP (12-15 mins)</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
