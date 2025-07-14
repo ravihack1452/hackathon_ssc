@@ -23,12 +23,19 @@ export interface CartItem {
   quantity: number;
 }
 
+export interface SellerCart {
+  sellerId: string;
+  sellerName: string;
+  items: CartItem[];
+}
+
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedStore, setSelectedStore] = useState('');
   const [currentView, setCurrentView] = useState<'home' | 'cart' | 'checkout' | 'payment' | 'tracking'>('home');
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [sellerCarts, setSellerCarts] = useState<SellerCart[]>([]);
+  const [selectedSellerCart, setSelectedSellerCart] = useState<string>('');
   const [orderDetails, setOrderDetails] = useState<any>(null);
 
   const handleSearch = (query: string) => {
@@ -56,48 +63,106 @@ function App() {
   };
 
   const addToCart = (item: Omit<CartItem, 'quantity'>) => {
-    setCartItems(prev => {
-      const existingItem = prev.find(cartItem => cartItem.id === item.id);
-      if (existingItem) {
-        return prev.map(cartItem =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
-        );
+    setSellerCarts(prev => {
+      const sellerId = getSellerId(item.store);
+      const existingSellerCart = prev.find(cart => cart.sellerId === sellerId);
+      
+      if (existingSellerCart) {
+        const existingItem = existingSellerCart.items.find(cartItem => cartItem.id === item.id);
+        if (existingItem) {
+          return prev.map(cart =>
+            cart.sellerId === sellerId
+              ? {
+                  ...cart,
+                  items: cart.items.map(cartItem =>
+                    cartItem.id === item.id
+                      ? { ...cartItem, quantity: cartItem.quantity + 1 }
+                      : cartItem
+                  )
+                }
+              : cart
+          );
+        } else {
+          return prev.map(cart =>
+            cart.sellerId === sellerId
+              ? { ...cart, items: [...cart.items, { ...item, quantity: 1 }] }
+              : cart
+          );
+        }
+      } else {
+        return [...prev, {
+          sellerId,
+          sellerName: item.store,
+          items: [{ ...item, quantity: 1 }]
+        }];
       }
-      return [...prev, { ...item, quantity: 1 }];
     });
   };
 
-  const updateQuantity = (id: string, quantity: number) => {
-    if (quantity === 0) {
-      setCartItems(prev => prev.filter(item => item.id !== id));
-    } else {
-      setCartItems(prev =>
-        prev.map(item =>
-          item.id === id ? { ...item, quantity } : item
-        )
-      );
-    }
+  const updateQuantity = (sellerId: string, itemId: string, quantity: number) => {
+    setSellerCarts(prev => {
+      return prev.map(cart => {
+        if (cart.sellerId === sellerId) {
+          if (quantity === 0) {
+            const updatedItems = cart.items.filter(item => item.id !== itemId);
+            return updatedItems.length > 0 ? { ...cart, items: updatedItems } : null;
+          } else {
+            return {
+              ...cart,
+              items: cart.items.map(item =>
+                item.id === itemId ? { ...item, quantity } : item
+              )
+            };
+          }
+        }
+        return cart;
+      }).filter(Boolean) as SellerCart[];
+    });
   };
 
   const getItemQuantity = (id: string) => {
-    return cartItems.find(item => item.id === id)?.quantity || 0;
+    for (const cart of sellerCarts) {
+      const item = cart.items.find(item => item.id === id);
+      if (item) return item.quantity;
+    }
+    return 0;
   };
 
-  const getTotalAmount = () => {
-    return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+  const getTotalAmount = (sellerId?: string) => {
+    if (sellerId) {
+      const cart = sellerCarts.find(cart => cart.sellerId === sellerId);
+      return cart ? cart.items.reduce((total, item) => total + (item.price * item.quantity), 0) : 0;
+    }
+    return sellerCarts.reduce((total, cart) => 
+      total + cart.items.reduce((cartTotal, item) => cartTotal + (item.price * item.quantity), 0), 0
+    );
   };
 
   const getTotalItems = () => {
-    return cartItems.reduce((total, item) => total + item.quantity, 0);
+    return sellerCarts.reduce((total, cart) => 
+      total + cart.items.reduce((cartTotal, item) => cartTotal + item.quantity, 0), 0
+    );
+  };
+
+  const getSellerId = (storeName: string): string => {
+    const storeMap: { [key: string]: string } = {
+      'Zara': 'zara',
+      'Zudio': 'zudio',
+      'Mayuri Bakery': 'mayuri-bakery',
+      'Nandini Milk Parlour': 'nandini',
+      'MedPlus': 'medplus',
+      'Karachi Bakery': 'karachi-bakery',
+      'Amazon': 'amazon'
+    };
+    return storeMap[storeName] || storeName.toLowerCase().replace(/\s+/g, '-');
   };
 
   const handleViewCart = () => {
     setCurrentView('cart');
   };
 
-  const handleCheckout = () => {
+  const handleCheckout = (sellerId: string) => {
+    setSelectedSellerCart(sellerId);
     setCurrentView('checkout');
   };
 
@@ -108,26 +173,36 @@ function App() {
 
   const handlePaymentComplete = () => {
     setCurrentView('tracking');
-    setCartItems([]); // Clear cart after successful payment
+    // Clear the specific seller cart after successful payment
+    if (selectedSellerCart) {
+      setSellerCarts(prev => prev.filter(cart => cart.sellerId !== selectedSellerCart));
+    }
   };
 
   if (currentView === 'cart') {
     return (
       <Cart
-        items={cartItems}
+        sellerCarts={sellerCarts}
         onUpdateQuantity={updateQuantity}
         onBack={handleBackToHome}
         onCheckout={handleCheckout}
-        totalAmount={getTotalAmount()}
+        getTotalAmount={getTotalAmount}
       />
     );
   }
 
   if (currentView === 'checkout') {
+    const selectedCart = sellerCarts.find(cart => cart.sellerId === selectedSellerCart);
+    if (!selectedCart) {
+      setCurrentView('home');
+      return null;
+    }
+    
     return (
       <Checkout
-        items={cartItems}
-        totalAmount={getTotalAmount()}
+        items={selectedCart.items}
+        sellerName={selectedCart.sellerName}
+        totalAmount={getTotalAmount(selectedSellerCart)}
         onBack={() => setCurrentView('cart')}
         onProceedToPayment={handlePayment}
       />
@@ -164,7 +239,16 @@ function App() {
           <ProductGrid 
             addToCart={addToCart}
             getItemQuantity={getItemQuantity}
-            updateQuantity={updateQuantity}
+            updateQuantity={(id, quantity) => {
+              // Find which seller cart contains this item
+              for (const cart of sellerCarts) {
+                const item = cart.items.find(item => item.id === id);
+                if (item) {
+                  updateQuantity(cart.sellerId, id, quantity);
+                  break;
+                }
+              }
+            }}
           />
           <LocalStores onStoreSelect={handleStoreSelect} />
         </>
@@ -176,7 +260,15 @@ function App() {
           onBack={handleBackToHome}
           addToCart={addToCart}
           getItemQuantity={getItemQuantity}
-          updateQuantity={updateQuantity}
+          updateQuantity={(id, quantity) => {
+            for (const cart of sellerCarts) {
+              const item = cart.items.find(item => item.id === id);
+              if (item) {
+                updateQuantity(cart.sellerId, id, quantity);
+                break;
+              }
+            }
+          }}
         />
       )}
       
@@ -187,7 +279,15 @@ function App() {
           onClearSearch={handleBackToHome}
           addToCart={addToCart}
           getItemQuantity={getItemQuantity}
-          updateQuantity={updateQuantity}
+          updateQuantity={(id, quantity) => {
+            for (const cart of sellerCarts) {
+              const item = cart.items.find(item => item.id === id);
+              if (item) {
+                updateQuantity(cart.sellerId, id, quantity);
+                break;
+              }
+            }
+          }}
         />
       )}
       

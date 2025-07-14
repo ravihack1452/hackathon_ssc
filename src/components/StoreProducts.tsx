@@ -19,35 +19,47 @@ export const StoreProducts: React.FC<StoreProductsProps> = ({
 }) => {
   const getStoreData = (storeId: string) => {
     const storeData: { [key: string]: any } = {
-      'zudio': {
-        name: 'Fashion Store',
-        category: 'Fashion & Apparel',
+      'zara': {
+        name: 'Zara',
+        category: 'Jewellery & Accessories',
         deliveryTime: '15 min',
+        products: [
+          { id: 'zara-1', name: 'Gold Plated Earrings', price: 899, originalPrice: 1299, weight: '1 pair', image: 'https://images.pexels.com/photos/1927259/pexels-photo-1927259.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '31% OFF' },
+          { id: 'zara-2', name: 'Silver Chain Necklace', price: 1299, originalPrice: 1899, weight: '1 piece', image: 'https://images.pexels.com/photos/1927259/pexels-photo-1927259.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '32% OFF' },
+          { id: 'zara-3', name: 'Diamond Ring', price: 2999, originalPrice: 4999, weight: '1 piece', image: 'https://images.pexels.com/photos/1927259/pexels-photo-1927259.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '40% OFF' },
+          { id: 'zara-4', name: 'Pearl Bracelet', price: 799, originalPrice: 1199, weight: '1 piece', image: 'https://images.pexels.com/photos/1927259/pexels-photo-1927259.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '33% OFF' },
+          { id: 'zara-5', name: 'Fashion Watch', price: 1599, originalPrice: 2499, weight: '1 piece', image: 'https://images.pexels.com/photos/1927259/pexels-photo-1927259.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '36% OFF' },
+          { id: 'zara-6', name: 'Pendant Set', price: 1099, originalPrice: 1699, weight: '1 set', image: 'https://images.pexels.com/photos/1927259/pexels-photo-1927259.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '35% OFF' }
+        ]
+      },
+      'zudio': {
+        name: 'Zudio',
+        category: 'Fashion & Clothing',
+        deliveryTime: '18 min',
         products: [
           { id: 'zudio-1', name: 'Men\'s Cotton T-Shirt', price: 399, originalPrice: 599, weight: 'M Size', image: 'https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '33% OFF' },
           { id: 'zudio-2', name: 'Women\'s Denim Jeans', price: 799, originalPrice: 1299, weight: '30 Size', image: 'https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '38% OFF' },
           { id: 'zudio-3', name: 'Casual Shirt', price: 599, originalPrice: 899, weight: 'L Size', image: 'https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '33% OFF' },
           { id: 'zudio-4', name: 'Summer Dress', price: 899, originalPrice: 1499, weight: 'M Size', image: 'https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '40% OFF' },
           { id: 'zudio-5', name: 'Sports Shoes', price: 1299, originalPrice: 1999, weight: '8 Size', image: 'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '35% OFF' },
-          { id: 'zudio-6', name: 'Leather Belt', price: 299, originalPrice: 499, weight: '32 Size', image: 'https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '40% OFF' },
-          { id: 'zudio-7', name: 'Winter Jacket', price: 1599, originalPrice: 2499, weight: 'L Size', image: 'https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '36% OFF' },
-          { id: 'zudio-8', name: 'Cotton Shorts', price: 399, originalPrice: 599, weight: 'M Size', image: 'https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '33% OFF' },
-          { id: 'zudio-9', name: 'Formal Trousers', price: 799, originalPrice: 1199, weight: '32 Size', image: 'https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '33% OFF' },
-          { id: 'zudio-10', name: 'Polo T-Shirt', price: 499, originalPrice: 799, weight: 'L Size', image: 'https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '38% OFF' },
-          { id: 'zudio-11', name: 'Sneakers', price: 999, originalPrice: 1599, weight: '9 Size', image: 'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '38% OFF' },
-          { id: 'zudio-12', name: 'Hoodie', price: 899, originalPrice: 1399, weight: 'M Size', image: 'https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '36% OFF' },
-          { id: 'zudio-13', name: 'Chinos', price: 699, originalPrice: 999, weight: '30 Size', image: 'https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '30% OFF' },
-          { id: 'zudio-14', name: 'Tank Top', price: 299, originalPrice: 499, weight: 'S Size', image: 'https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '40% OFF' },
-          { id: 'zudio-15', name: 'Cardigan', price: 799, originalPrice: 1299, weight: 'L Size', image: 'https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '38% OFF' },
-          { id: 'zudio-16', name: 'Joggers', price: 599, originalPrice: 899, weight: 'M Size', image: 'https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '33% OFF' },
-          { id: 'zudio-17', name: 'Blazer', price: 1999, originalPrice: 2999, weight: 'L Size', image: 'https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '33% OFF' },
-          { id: 'zudio-18', name: 'Scarf', price: 199, originalPrice: 399, weight: 'One Size', image: 'https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '50% OFF' },
-          { id: 'zudio-19', name: 'Cap', price: 299, originalPrice: 499, weight: 'One Size', image: 'https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '40% OFF' },
-          { id: 'zudio-20', name: 'Socks Pack', price: 199, originalPrice: 299, weight: '3 Pairs', image: 'https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '33% OFF' }
+          { id: 'zudio-6', name: 'Leather Belt', price: 299, originalPrice: 499, weight: '32 Size', image: 'https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '40% OFF' }
+        ]
+      },
+      'mayuri-bakery': {
+        name: 'Mayuri Bakery',
+        category: 'Bakery & Sweets',
+        deliveryTime: '12 min',
+        products: [
+          { id: 'mayuri-1', name: 'Chocolate Cake', price: 450, weight: '500g', image: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=200' },
+          { id: 'mayuri-2', name: 'Vanilla Cupcakes', price: 180, weight: '6 pieces', image: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=200' },
+          { id: 'mayuri-3', name: 'Fresh Croissants', price: 120, weight: '4 pieces', image: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=200' },
+          { id: 'mayuri-4', name: 'Gulab Jamun', price: 200, weight: '1 kg', image: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=200' },
+          { id: 'mayuri-5', name: 'Rasgulla', price: 180, weight: '1 kg', image: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=200' },
+          { id: 'mayuri-6', name: 'Samosa', price: 60, weight: '6 pieces', image: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=200' }
         ]
       },
       'nandini': {
-        name: 'Fresh Dairy',
+        name: 'Nandini Milk Parlour',
         category: 'Dairy Products',
         deliveryTime: '10 min',
         products: [
@@ -56,75 +68,33 @@ export const StoreProducts: React.FC<StoreProductsProps> = ({
           { id: 'nandini-3', name: 'Nandini Curd', price: 30, weight: '400 g', image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200' },
           { id: 'nandini-4', name: 'Nandini Buttermilk', price: 15, weight: '200 ml', image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200' },
           { id: 'nandini-5', name: 'Nandini Paneer', price: 80, weight: '200 g', image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'nandini-6', name: 'Nandini Ghee', price: 250, weight: '500 ml', image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'nandini-7', name: 'Nandini Butter', price: 45, weight: '100 g', image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'nandini-8', name: 'Nandini Cheese Slice', price: 60, weight: '200 g', image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'nandini-9', name: 'Nandini Lassi', price: 20, weight: '200 ml', image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'nandini-10', name: 'Nandini Ice Cream', price: 35, weight: '100 ml', image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'nandini-11', name: 'Nandini Milk Powder', price: 180, weight: '500 g', image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'nandini-12', name: 'Nandini Flavored Milk', price: 25, weight: '200 ml', image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'nandini-13', name: 'Nandini Cream', price: 40, weight: '200 ml', image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'nandini-14', name: 'Nandini Kheer', price: 30, weight: '200 ml', image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'nandini-15', name: 'Nandini Yogurt Drink', price: 18, weight: '200 ml', image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'nandini-16', name: 'Nandini Cottage Cheese', price: 70, weight: '200 g', image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'nandini-17', name: 'Nandini Milk Cake', price: 120, weight: '250 g', image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'nandini-18', name: 'Nandini Badam Milk', price: 35, weight: '200 ml', image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'nandini-19', name: 'Nandini Shrikhand', price: 50, weight: '200 g', image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'nandini-20', name: 'Nandini Malai', price: 25, weight: '100 g', image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200' }
+          { id: 'nandini-6', name: 'Nandini Ghee', price: 250, weight: '500 ml', image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200' }
         ]
       },
-      'ganesh-kirana': {
-        name: 'Grocery Mart',
-        category: 'Grocery & Essentials',
-        deliveryTime: '18 min',
+      'medplus': {
+        name: 'MedPlus',
+        category: 'Pharmacy & Health',
+        deliveryTime: '20 min',
         products: [
-          { id: 'ganesh-1', name: 'Basmati Rice', price: 120, weight: '1 kg', image: 'https://images.pexels.com/photos/723198/pexels-photo-723198.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'ganesh-2', name: 'Wheat Flour', price: 45, weight: '1 kg', image: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'ganesh-3', name: 'Sugar', price: 42, weight: '1 kg', image: 'https://images.pexels.com/photos/1340116/pexels-photo-1340116.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'ganesh-4', name: 'Cooking Oil', price: 140, weight: '1 L', image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'ganesh-5', name: 'Turmeric Powder', price: 80, weight: '200 g', image: 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'ganesh-6', name: 'Red Chili Powder', price: 90, weight: '200 g', image: 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'ganesh-7', name: 'Cumin Seeds', price: 120, weight: '100 g', image: 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'ganesh-8', name: 'Mustard Seeds', price: 60, weight: '100 g', image: 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'ganesh-9', name: 'Black Pepper', price: 200, weight: '100 g', image: 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'ganesh-10', name: 'Cardamom', price: 300, weight: '50 g', image: 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'ganesh-11', name: 'Cinnamon Sticks', price: 80, weight: '50 g', image: 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'ganesh-12', name: 'Bay Leaves', price: 40, weight: '20 g', image: 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'ganesh-13', name: 'Garam Masala', price: 60, weight: '100 g', image: 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'ganesh-14', name: 'Coriander Seeds', price: 50, weight: '100 g', image: 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'ganesh-15', name: 'Fenugreek Seeds', price: 40, weight: '100 g', image: 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'ganesh-16', name: 'Asafoetida', price: 150, weight: '50 g', image: 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'ganesh-17', name: 'Tamarind', price: 30, weight: '200 g', image: 'https://images.pexels.com/photos/4198015/pexels-photo-4198015.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'ganesh-18', name: 'Jaggery', price: 50, weight: '500 g', image: 'https://images.pexels.com/photos/1340116/pexels-photo-1340116.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'ganesh-19', name: 'Rock Salt', price: 25, weight: '1 kg', image: 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'ganesh-20', name: 'Baking Soda', price: 20, weight: '100 g', image: 'https://images.pexels.com/photos/4198015/pexels-photo-4198015.jpeg?auto=compress&cs=tinysrgb&w=200' }
+          { id: 'medplus-1', name: 'Paracetamol Tablets', price: 25, weight: '10 tablets', image: 'https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=200' },
+          { id: 'medplus-2', name: 'Vitamin C Tablets', price: 120, weight: '30 tablets', image: 'https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=200' },
+          { id: 'medplus-3', name: 'Hand Sanitizer', price: 80, weight: '100 ml', image: 'https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=200' },
+          { id: 'medplus-4', name: 'Face Mask', price: 150, weight: '50 pieces', image: 'https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=200' },
+          { id: 'medplus-5', name: 'Thermometer', price: 350, weight: '1 piece', image: 'https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=200' },
+          { id: 'medplus-6', name: 'Bandages', price: 45, weight: '10 pieces', image: 'https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=200' }
         ]
       },
-      'book-palace': {
-        name: 'Stationery Hub',
-        category: 'Books & Stationery',
-        deliveryTime: '14 min',
+      'karachi-bakery': {
+        name: 'Karachi Bakery',
+        category: 'Bakery & Biscuits',
+        deliveryTime: '16 min',
         products: [
-          { id: 'book-1', name: 'Notebook A4', price: 45, weight: '200 pages', image: 'https://images.pexels.com/photos/1319854/pexels-photo-1319854.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'book-2', name: 'Ball Pen Set', price: 25, weight: '5 pens', image: 'https://images.pexels.com/photos/1319854/pexels-photo-1319854.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'book-3', name: 'Pencil Box', price: 80, weight: '1 piece', image: 'https://images.pexels.com/photos/1319854/pexels-photo-1319854.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'book-4', name: 'Eraser Pack', price: 15, weight: '5 pieces', image: 'https://images.pexels.com/photos/1319854/pexels-photo-1319854.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'book-5', name: 'Ruler Set', price: 30, weight: '3 pieces', image: 'https://images.pexels.com/photos/1319854/pexels-photo-1319854.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'book-6', name: 'Geometry Box', price: 120, weight: '1 set', image: 'https://images.pexels.com/photos/1319854/pexels-photo-1319854.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'book-7', name: 'Color Pencils', price: 60, weight: '12 colors', image: 'https://images.pexels.com/photos/1319854/pexels-photo-1319854.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'book-8', name: 'Sketch Book', price: 35, weight: '50 pages', image: 'https://images.pexels.com/photos/1319854/pexels-photo-1319854.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'book-9', name: 'Marker Set', price: 90, weight: '10 colors', image: 'https://images.pexels.com/photos/1319854/pexels-photo-1319854.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'book-10', name: 'Stapler', price: 75, weight: '1 piece', image: 'https://images.pexels.com/photos/1319854/pexels-photo-1319854.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'book-11', name: 'Paper Clips', price: 20, weight: '100 pieces', image: 'https://images.pexels.com/photos/1319854/pexels-photo-1319854.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'book-12', name: 'Sticky Notes', price: 40, weight: '4 pads', image: 'https://images.pexels.com/photos/1319854/pexels-photo-1319854.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'book-13', name: 'File Folder', price: 25, weight: '1 piece', image: 'https://images.pexels.com/photos/1319854/pexels-photo-1319854.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'book-14', name: 'Calculator', price: 150, weight: '1 piece', image: 'https://images.pexels.com/photos/1319854/pexels-photo-1319854.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'book-15', name: 'Highlighter Set', price: 50, weight: '4 colors', image: 'https://images.pexels.com/photos/1319854/pexels-photo-1319854.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'book-16', name: 'Diary 2024', price: 80, weight: '365 pages', image: 'https://images.pexels.com/photos/1319854/pexels-photo-1319854.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'book-17', name: 'Whiteboard Marker', price: 35, weight: '2 pieces', image: 'https://images.pexels.com/photos/1319854/pexels-photo-1319854.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'book-18', name: 'Correction Tape', price: 25, weight: '1 piece', image: 'https://images.pexels.com/photos/1319854/pexels-photo-1319854.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'book-19', name: 'Compass Set', price: 45, weight: '1 set', image: 'https://images.pexels.com/photos/1319854/pexels-photo-1319854.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'book-20', name: 'Glue Stick', price: 18, weight: '1 piece', image: 'https://images.pexels.com/photos/1319854/pexels-photo-1319854.jpeg?auto=compress&cs=tinysrgb&w=200' }
+          { id: 'karachi-1', name: 'Fruit Biscuits', price: 180, weight: '400g', image: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=200' },
+          { id: 'karachi-2', name: 'Osmania Biscuits', price: 120, weight: '200g', image: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=200' },
+          { id: 'karachi-3', name: 'Dilkush Biscuits', price: 150, weight: '300g', image: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=200' },
+          { id: 'karachi-4', name: 'Butter Cookies', price: 200, weight: '250g', image: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=200' },
+          { id: 'karachi-5', name: 'Chocolate Cookies', price: 220, weight: '250g', image: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=200' },
+          { id: 'karachi-6', name: 'Coconut Cookies', price: 190, weight: '250g', image: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=200' }
         ]
       }
     };
@@ -155,9 +125,16 @@ export const StoreProducts: React.FC<StoreProductsProps> = ({
             <ArrowLeft className="h-6 w-6 text-gray-600" />
           </button>
           <div>
-            <h1 className="text-xl font-bold text-gray-900">{store.name}</h1>
-            <p className="text-sm text-gray-600">{store.category} • {store.deliveryTime}</p>
+            <h1 className="text-xl font-bold text-gray-900">
+              amazon <span className="text-blue-600 font-normal italic">now</span>
+            </h1>
+            <p className="text-sm text-gray-600">{store.name}</p>
           </div>
+        </div>
+        <div className="bg-blue-50 px-3 py-2 rounded-lg">
+          <p className="text-sm text-blue-800">
+            <span className="font-medium">{store.name}</span> • {store.category} • Delivery in {store.deliveryTime}
+          </p>
         </div>
       </div>
 

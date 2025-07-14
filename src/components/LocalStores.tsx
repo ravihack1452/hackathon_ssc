@@ -8,60 +8,46 @@ interface LocalStoresProps {
 export const LocalStores: React.FC<LocalStoresProps> = ({ onStoreSelect }) => {
   const localStores = [
     {
-      id: 'zudio',
-      name: 'Fashion Store',
-      logo: 'https://images.pexels.com/photos/1884581/pexels-photo-1884581.jpeg?auto=compress&cs=tinysrgb&w=300',
-      category: 'Fashion & Apparel',
+      id: 'zara',
+      name: 'Zara',
+      logo: 'https://images.pexels.com/photos/1927259/pexels-photo-1927259.jpeg?auto=compress&cs=tinysrgb&w=300',
+      category: 'Jewellery & Accessories',
       deliveryTime: '15 mins'
     },
     {
-      id: 'zara',
-      name: 'Trendy Boutique',
-      logo: 'https://images.pexels.com/photos/994517/pexels-photo-994517.jpeg?auto=compress&cs=tinysrgb&w=300',
-      category: 'Fashion & Style',
+      id: 'zudio',
+      name: 'Zudio',
+      logo: 'https://images.pexels.com/photos/1884581/pexels-photo-1884581.jpeg?auto=compress&cs=tinysrgb&w=300',
+      category: 'Fashion & Clothing',
       deliveryTime: '18 mins'
     },
     {
+      id: 'mayuri-bakery',
+      name: 'Mayuri Bakery',
+      logo: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=300',
+      category: 'Bakery & Sweets',
+      deliveryTime: '12 mins'
+    },
+    {
       id: 'nandini',
-      name: 'Fresh Dairy',
+      name: 'Nandini Milk Parlour',
       logo: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=300',
       category: 'Dairy Products',
       deliveryTime: '10 mins'
     },
     {
-      id: 'amul',
-      name: 'Milk Corner',
-      logo: 'https://images.pexels.com/photos/416978/pexels-photo-416978.jpeg?auto=compress&cs=tinysrgb&w=300',
-      category: 'Dairy & Beverages',
-      deliveryTime: '12 mins'
+      id: 'medplus',
+      name: 'MedPlus',
+      logo: 'https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=300',
+      category: 'Pharmacy & Health',
+      deliveryTime: '20 mins'
     },
     {
-      id: 'ganesh-kirana',
-      name: 'Grocery Mart',
-      logo: 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=300',
-      category: 'Grocery & Essentials',
-      deliveryTime: '18 mins'
-    },
-    {
-      id: 'fresh-fruits',
-      name: 'Fresh Market',
-      logo: 'https://images.pexels.com/photos/1656663/pexels-photo-1656663.jpeg?auto=compress&cs=tinysrgb&w=300',
-      category: 'Fruits & Vegetables',
-      deliveryTime: '14 mins'
-    },
-    {
-      id: 'book-palace',
-      name: 'Stationery Hub',
-      logo: 'https://images.pexels.com/photos/1319854/pexels-photo-1319854.jpeg?auto=compress&cs=tinysrgb&w=300',
-      category: 'Books & Stationery',
+      id: 'karachi-bakery',
+      name: 'Karachi Bakery',
+      logo: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=300',
+      category: 'Bakery & Biscuits',
       deliveryTime: '16 mins'
-    },
-    {
-      id: 'cera-sanitaryware',
-      name: 'Hardware Store',
-      logo: 'https://images.pexels.com/photos/1358912/pexels-photo-1358912.jpeg?auto=compress&cs=tinysrgb&w=300',
-      category: 'Hardware & Tools',
-      deliveryTime: '25 mins'
     }
   ];
 
@@ -89,7 +75,7 @@ export const LocalStores: React.FC<LocalStoresProps> = ({ onStoreSelect }) => {
               <p className="text-xs text-gray-500 mb-2 text-center">{store.category}</p>
               <div className="flex items-center space-x-1 bg-green-50 px-2 py-1 rounded-full">
                 <Clock className="h-3 w-3 text-green-600" />
-                <span className="text-xs text-green-600 font-medium">{store.deliveryTime}</span>
+                <span className="text-xs text-green-600 font-medium">in {store.deliveryTime}</span>
               </div>
             </div>
           </button>

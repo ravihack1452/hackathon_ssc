@@ -4,6 +4,7 @@ import { CartItem } from '../App';
 
 interface CheckoutProps {
   items: CartItem[];
+  sellerName: string;
   totalAmount: number;
   onBack: () => void;
   onProceedToPayment: (checkoutData: any) => void;
@@ -11,6 +12,7 @@ interface CheckoutProps {
 
 export const Checkout: React.FC<CheckoutProps> = ({ 
   items, 
+  sellerName,
   totalAmount, 
   onBack, 
   onProceedToPayment 
@@ -68,7 +70,7 @@ export const Checkout: React.FC<CheckoutProps> = ({
             <h1 className="text-xl font-bold text-gray-900">
               amazon <span className="text-blue-600 font-normal italic">now</span>
             </h1>
-            <p className="text-sm text-gray-600">Checkout</p>
+            <p className="text-sm text-gray-600">Checkout from {sellerName}</p>
           </div>
         </div>
       </div>
