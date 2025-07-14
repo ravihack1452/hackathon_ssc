@@ -17,17 +17,17 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
     {
       id: '1',
       name: 'Tata I-Shakti Cooking Soda',
-      store: 'Amazon',
+      store: 'Local Store',
       weight: '100 g',
       price: 20,
       originalPrice: null,
       discount: null,
-      image: 'https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=200'
+      image: 'https://images.pexels.com/photos/4198015/pexels-photo-4198015.jpeg?auto=compress&cs=tinysrgb&w=200'
     },
     {
       id: '2',
       name: 'Aashirvaad Iodized Salt',
-      store: 'Amazon',
+      store: 'Ganesh Kirana',
       weight: '1 kg',
       price: 24,
       originalPrice: 28,
@@ -37,7 +37,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
     {
       id: '3',
       name: 'Tata Iodised Crystal Salt',
-      store: 'Amazon',
+      store: 'Ganesh Kirana',
       weight: '1 kg',
       price: 21,
       originalPrice: 22,
@@ -47,7 +47,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
     {
       id: '4',
       name: 'Tata Himalayan Rock Salt',
-      store: 'Amazon',
+      store: 'Local Store',
       weight: '1 kg',
       price: 109,
       originalPrice: 120,
@@ -57,7 +57,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
     {
       id: '5',
       name: 'Vedaka Fenugreek (Methi)',
-      store: 'Amazon',
+      store: 'Spice Corner',
       weight: '200 g',
       price: 33,
       originalPrice: 60,
@@ -67,7 +67,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
     {
       id: '6',
       name: 'Vedaka Black Pepper Corn',
-      store: 'Amazon',
+      store: 'Spice Corner',
       weight: '100 g',
       price: 114,
       originalPrice: 165,
@@ -77,22 +77,22 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
     {
       id: '7',
       name: 'Fortune Sunlite Sunflower Oil',
-      store: 'Amazon',
+      store: 'Oil Depot',
       weight: '5 L',
       price: 718,
       originalPrice: 930,
       discount: '23% OFF',
-      image: 'https://images.pexels.com/photos/4198015/pexels-photo-4198015.jpeg?auto=compress&cs=tinysrgb&w=200'
+      image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=200'
     },
     {
       id: '8',
       name: 'Sunpure Refined Oil',
-      store: 'Amazon',
+      store: 'Oil Depot',
       weight: '5 L',
       price: 745,
       originalPrice: 850,
       discount: '17% OFF',
-      image: 'https://images.pexels.com/photos/4198015/pexels-photo-4198015.jpeg?auto=compress&cs=tinysrgb&w=200'
+      image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=200'
     }
   ];
 

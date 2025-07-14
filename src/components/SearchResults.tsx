@@ -28,22 +28,22 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
     {
       id: 'search-1',
       name: 'Organic Basmati Rice',
-      store: 'Amazon',
+      store: 'Ganesh Kirana',
       weight: '1 kg',
       price: 150,
       originalPrice: 180,
       discount: '17% OFF',
-      image: 'https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=200'
+      image: 'https://images.pexels.com/photos/723198/pexels-photo-723198.jpeg?auto=compress&cs=tinysrgb&w=200'
     },
     {
       id: 'search-2',
       name: 'Premium Tea Leaves',
-      store: 'Amazon',
+      store: 'Tea Corner',
       weight: '500 g',
       price: 120,
       originalPrice: 150,
       discount: '20% OFF',
-      image: 'https://images.pexels.com/photos/4198015/pexels-photo-4198015.jpeg?auto=compress&cs=tinysrgb&w=200'
+      image: 'https://images.pexels.com/photos/1638280/pexels-photo-1638280.jpeg?auto=compress&cs=tinysrgb&w=200'
     },
     {
       id: 'search-3',
