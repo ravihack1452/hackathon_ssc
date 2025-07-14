@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clock } from 'lucide-react';
+import { Clock, Star } from 'lucide-react';
 
 interface LocalStoresProps {
   onStoreSelect: (storeId: string) => void;
@@ -10,6 +10,7 @@ export const LocalStores: React.FC<LocalStoresProps> = ({ onStoreSelect }) => {
     {
       id: 'zara',
       name: 'Zara',
+      rating: 4.3,
       logo: 'https://images.pexels.com/photos/1927259/pexels-photo-1927259.jpeg?auto=compress&cs=tinysrgb&w=300',
       category: 'Jewellery & Accessories',
       deliveryTime: '15 mins'
@@ -17,6 +18,7 @@ export const LocalStores: React.FC<LocalStoresProps> = ({ onStoreSelect }) => {
     {
       id: 'zudio',
       name: 'Zudio',
+      rating: 4.5,
       logo: 'https://images.pexels.com/photos/1884581/pexels-photo-1884581.jpeg?auto=compress&cs=tinysrgb&w=300',
       category: 'Fashion & Clothing',
       deliveryTime: '18 mins'
@@ -24,6 +26,7 @@ export const LocalStores: React.FC<LocalStoresProps> = ({ onStoreSelect }) => {
     {
       id: 'mayuri-bakery',
       name: 'Mayuri Bakery',
+      rating: 4.7,
       logo: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=300',
       category: 'Bakery & Sweets',
       deliveryTime: '12 mins'
@@ -31,6 +34,7 @@ export const LocalStores: React.FC<LocalStoresProps> = ({ onStoreSelect }) => {
     {
       id: 'nandini',
       name: 'Nandini Milk Parlour',
+      rating: 4.6,
       logo: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=300',
       category: 'Dairy Products',
       deliveryTime: '10 mins'
@@ -38,6 +42,7 @@ export const LocalStores: React.FC<LocalStoresProps> = ({ onStoreSelect }) => {
     {
       id: 'medplus',
       name: 'MedPlus',
+      rating: 4.2,
       logo: 'https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=300',
       category: 'Pharmacy & Health',
       deliveryTime: '20 mins'
@@ -45,6 +50,7 @@ export const LocalStores: React.FC<LocalStoresProps> = ({ onStoreSelect }) => {
     {
       id: 'karachi-bakery',
       name: 'Karachi Bakery',
+      rating: 4.4,
       logo: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=300',
       category: 'Bakery & Biscuits',
       deliveryTime: '16 mins'
@@ -69,9 +75,17 @@ export const LocalStores: React.FC<LocalStoresProps> = ({ onStoreSelect }) => {
                   className="w-full h-full object-cover"
                 />
               </div>
+              
+              <div className="flex items-center justify-between mb-2">
               <h4 className="text-sm font-semibold text-gray-900 text-center mb-1 group-hover:text-blue-600">
                 {store.name}
               </h4>
+                <div className="flex items-center space-x-1">
+                  <Star className="h-3 w-3 text-yellow-400 fill-current" />
+                  <span className="text-xs font-medium text-gray-700">{store.rating}</span>
+                </div>
+              </div>
+              
               <p className="text-xs text-gray-500 mb-2 text-center">{store.category}</p>
               <div className="flex items-center space-x-1 bg-green-50 px-2 py-1 rounded-full">
                 <Clock className="h-3 w-3 text-green-600" />

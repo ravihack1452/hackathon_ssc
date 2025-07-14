@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, Filter, SortAsc, Plus, Minus } from 'lucide-react';
+import { ArrowLeft, Filter, SortAsc, Plus, Minus, Star } from 'lucide-react';
 import { CartItem } from '../App';
 
 interface SearchResultsProps {
@@ -29,6 +29,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
       id: 'search-1',
       name: 'Organic Basmati Rice',
       store: 'Grocery Mart',
+      rating: 4.3,
       weight: '1 kg',
       price: 150,
       originalPrice: 180,
@@ -39,6 +40,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
       id: 'search-2',
       name: 'Premium Tea Leaves',
       store: 'Tea Store',
+      rating: 4.5,
       weight: '500 g',
       price: 120,
       originalPrice: 150,
@@ -49,6 +51,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
       id: 'search-3',
       name: 'Fresh Vegetables Mix',
       store: 'Fresh Market',
+      rating: 4.2,
       weight: '1 kg',
       price: 80,
       originalPrice: 100,
@@ -59,6 +62,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
       id: 'search-4',
       name: 'Dairy Fresh Milk',
       store: 'Fresh Dairy',
+      rating: 4.6,
       weight: '1 L',
       price: 50,
       originalPrice: null,
@@ -134,6 +138,10 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                   <h3 className="text-xs font-medium text-gray-900 line-clamp-2 mb-1">
                     {product.name}
                   </h3>
+                  <div className="flex items-center space-x-1 mb-1">
+                    <Star className="h-3 w-3 text-yellow-400 fill-current" />
+                    <span className="text-xs text-gray-600">{product.rating}</span>
+                  </div>
                   <p className="text-xs text-gray-600">{product.weight}</p>
                 </div>
                 

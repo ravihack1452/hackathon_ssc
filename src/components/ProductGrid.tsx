@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plus, Minus } from 'lucide-react';
+import { Plus, Minus, Star } from 'lucide-react';
 import { CartItem } from '../App';
 
 interface ProductGridProps {
@@ -18,6 +18,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       id: '1',
       name: 'Tata I-Shakti Cooking Soda',
       store: 'Amazon',
+      rating: 4.2,
       weight: '100 g',
       price: 20,
       originalPrice: null,
@@ -28,6 +29,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       id: '2',
       name: 'Aashirvaad Iodized Salt',
       store: 'Amazon',
+      rating: 4.5,
       weight: '1 kg',
       price: 24,
       originalPrice: 28,
@@ -38,6 +40,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       id: '3',
       name: 'Tata Iodised Crystal Salt',
       store: 'Amazon',
+      rating: 4.3,
       weight: '1 kg',
       price: 21,
       originalPrice: 22,
@@ -48,6 +51,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       id: '4',
       name: 'Tata Himalayan Rock Salt',
       store: 'Amazon',
+      rating: 4.6,
       weight: '1 kg',
       price: 109,
       originalPrice: 120,
@@ -58,6 +62,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       id: '5',
       name: 'Vedaka Fenugreek (Methi)',
       store: 'Amazon',
+      rating: 4.1,
       weight: '200 g',
       price: 33,
       originalPrice: 60,
@@ -68,6 +73,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       id: '6',
       name: 'Vedaka Black Pepper Corn',
       store: 'Amazon',
+      rating: 4.4,
       weight: '100 g',
       price: 114,
       originalPrice: 165,
@@ -78,6 +84,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       id: '7',
       name: 'Fortune Sunlite Sunflower Oil',
       store: 'Amazon',
+      rating: 4.3,
       weight: '5 L',
       price: 718,
       originalPrice: 930,
@@ -88,6 +95,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       id: '8',
       name: 'Sunpure Refined Oil',
       store: 'Amazon',
+      rating: 4.2,
       weight: '5 L',
       price: 745,
       originalPrice: 850,
@@ -133,6 +141,10 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                 <h3 className="text-xs font-medium text-gray-900 line-clamp-2 mb-1">
                   {product.name}
                 </h3>
+                <div className="flex items-center space-x-1 mb-1">
+                  <Star className="h-3 w-3 text-yellow-400 fill-current" />
+                  <span className="text-xs text-gray-600">{product.rating}</span>
+                </div>
                 <p className="text-xs text-gray-600">{product.weight}</p>
               </div>
               
@@ -204,6 +216,10 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                   <h3 className="text-xs font-medium text-gray-900 line-clamp-2 mb-1">
                     {product.name}
                   </h3>
+                  <div className="flex items-center space-x-1 mb-1">
+                    <Star className="h-3 w-3 text-yellow-400 fill-current" />
+                    <span className="text-xs text-gray-600">{product.rating}</span>
+                  </div>
                   <p className="text-xs text-gray-600">{product.weight}</p>
                 </div>
                 
