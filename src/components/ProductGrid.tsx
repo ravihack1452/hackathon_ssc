@@ -23,7 +23,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       price: 20,
       originalPrice: null,
       discount: null,
-      image: 'https://images.pexels.com/photos/4198015/pexels-photo-4198015.jpeg?auto=compress&cs=tinysrgb&w=200'
+      image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200'
     },
     {
       id: '2',
@@ -34,7 +34,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       price: 24,
       originalPrice: 28,
       discount: '14% OFF',
-      image: 'https://images.pexels.com/photos/1340116/pexels-photo-1340116.jpeg?auto=compress&cs=tinysrgb&w=200'
+      image: 'https://images.pexels.com/photos/1022385/pexels-photo-1022385.jpeg?auto=compress&cs=tinysrgb&w=200'
     },
     {
       id: '3',
@@ -45,7 +45,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       price: 21,
       originalPrice: 22,
       discount: '5% OFF',
-      image: 'https://images.pexels.com/photos/1340116/pexels-photo-1340116.jpeg?auto=compress&cs=tinysrgb&w=200'
+      image: 'https://images.pexels.com/photos/1022385/pexels-photo-1022385.jpeg?auto=compress&cs=tinysrgb&w=200'
     },
     {
       id: '4',
@@ -56,7 +56,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       price: 109,
       originalPrice: 120,
       discount: '9% OFF',
-      image: 'https://images.pexels.com/photos/1340116/pexels-photo-1340116.jpeg?auto=compress&cs=tinysrgb&w=200'
+      image: 'https://images.pexels.com/photos/1022385/pexels-photo-1022385.jpeg?auto=compress&cs=tinysrgb&w=200'
     },
     {
       id: '5',
@@ -67,7 +67,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       price: 33,
       originalPrice: 60,
       discount: '45% OFF',
-      image: 'https://images.pexels.com/photos/4198015/pexels-photo-4198015.jpeg?auto=compress&cs=tinysrgb&w=200'
+      image: 'https://images.pexels.com/photos/277253/pexels-photo-277253.jpeg?auto=compress&cs=tinysrgb&w=200'
     },
     {
       id: '6',
@@ -78,7 +78,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       price: 114,
       originalPrice: 165,
       discount: '31% OFF',
-      image: 'https://images.pexels.com/photos/4198015/pexels-photo-4198015.jpeg?auto=compress&cs=tinysrgb&w=200'
+      image: 'https://images.pexels.com/photos/161556/spices-chili-pepper-red-hot-161556.jpeg?auto=compress&cs=tinysrgb&w=200'
     },
     {
       id: '7',
@@ -89,7 +89,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       price: 718,
       originalPrice: 930,
       discount: '23% OFF',
-      image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=200'
+      image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200'
     },
     {
       id: '8',

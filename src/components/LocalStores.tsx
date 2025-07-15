@@ -11,7 +11,7 @@ export const LocalStores: React.FC<LocalStoresProps> = ({ onStoreSelect }) => {
       id: 'zara',
       name: 'Zara',
       rating: 4.3,
-      logo: 'https://images.pexels.com/photos/1927259/pexels-photo-1927259.jpeg?auto=compress&cs=tinysrgb&w=300',
+      logo: 'https://images.pexels.com/photos/1191531/pexels-photo-1191531.jpeg?auto=compress&cs=tinysrgb&w=300',
       category: 'Jewellery & Accessories',
       deliveryTime: '15 mins'
     },
@@ -19,7 +19,7 @@ export const LocalStores: React.FC<LocalStoresProps> = ({ onStoreSelect }) => {
       id: 'zudio',
       name: 'Zudio',
       rating: 4.5,
-      logo: 'https://images.pexels.com/photos/1884581/pexels-photo-1884581.jpeg?auto=compress&cs=tinysrgb&w=300',
+      logo: 'https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg?auto=compress&cs=tinysrgb&w=300',
       category: 'Fashion & Clothing',
       deliveryTime: '18 mins'
     },
@@ -27,7 +27,7 @@ export const LocalStores: React.FC<LocalStoresProps> = ({ onStoreSelect }) => {
       id: 'mayuri-bakery',
       name: 'Mayuri Bakery',
       rating: 4.7,
-      logo: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=300',
+      logo: 'https://images.pexels.com/photos/230325/pexels-photo-230325.jpeg?auto=compress&cs=tinysrgb&w=300',
       category: 'Bakery & Sweets',
       deliveryTime: '12 mins'
     },
@@ -35,7 +35,7 @@ export const LocalStores: React.FC<LocalStoresProps> = ({ onStoreSelect }) => {
       id: 'nandini',
       name: 'Nandini Milk Parlour',
       rating: 4.6,
-      logo: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=300',
+      logo: 'https://images.pexels.com/photos/416978/pexels-photo-416978.jpeg?auto=compress&cs=tinysrgb&w=300',
       category: 'Dairy Products',
       deliveryTime: '10 mins'
     },
@@ -43,7 +43,7 @@ export const LocalStores: React.FC<LocalStoresProps> = ({ onStoreSelect }) => {
       id: 'medplus',
       name: 'MedPlus',
       rating: 4.2,
-      logo: 'https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=300',
+      logo: 'https://images.pexels.com/photos/3683074/pexels-photo-3683074.jpeg?auto=compress&cs=tinysrgb&w=300',
       category: 'Pharmacy & Health',
       deliveryTime: '20 mins'
     },
@@ -51,7 +51,7 @@ export const LocalStores: React.FC<LocalStoresProps> = ({ onStoreSelect }) => {
       id: 'karachi-bakery',
       name: 'Karachi Bakery',
       rating: 4.4,
-      logo: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=300',
+      logo: 'https://images.pexels.com/photos/1070850/pexels-photo-1070850.jpeg?auto=compress&cs=tinysrgb&w=300',
       category: 'Bakery & Biscuits',
       deliveryTime: '16 mins'
     }
