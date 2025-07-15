@@ -6,7 +6,7 @@ interface CartProps {
   sellerCarts: SellerCart[];
   onUpdateQuantity: (sellerId: string, itemId: string, quantity: number) => void;
   onBack: () => void;
-  onCheckout: (sellerId: string) => void;
+  onCheckout: () => void;
   getTotalAmount: (sellerId?: string) => number;
 }
 
@@ -150,15 +150,25 @@ export const Cart: React.FC<CartProps> = ({
                 </div>
 
                 <button
-                  onClick={() => onCheckout(sellerCart.sellerId)}
+                  onClick={onCheckout}
                   className="w-full bg-yellow-400 text-black py-3 rounded-lg font-bold hover:bg-yellow-500"
                 >
-                  Checkout from {sellerCart.sellerName}
+                  Add to Checkout
                 </button>
               </div>
             </div>
           );
         })}
+        
+        {/* Single Checkout Button */}
+        <div className="mt-6">
+          <button
+            onClick={onCheckout}
+            className="w-full bg-green-600 text-white py-4 rounded-lg font-bold text-lg hover:bg-green-700"
+          >
+            Checkout All Items (₹{sellerCarts.reduce((total, cart) => total + getTotalAmount(cart.sellerId), 0)})
+          </button>
+        </div>
       </div>
     </div>
   );

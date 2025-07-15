@@ -1,28 +1,30 @@
 import React, { useState } from 'react';
-import { ArrowLeft, MapPin, Clock, CreditCard } from 'lucide-react';
-import { CartItem } from '../App';
+import { ArrowLeft, MapPin, Clock, CreditCard, Leaf, Package, ChevronRight } from 'lucide-react';
+import { SellerCart } from '../App';
 
 interface CheckoutProps {
-  items: CartItem[];
-  sellerName: string;
+  sellerCarts: SellerCart[];
+  waitlistedCarts: SellerCart[];
   totalAmount: number;
   onBack: () => void;
   onProceedToPayment: (checkoutData: any) => void;
+  onToggleWaitlist: (sellerId: string) => void;
+  ecoFriendlyDelivery: boolean;
+  onToggleEcoDelivery: (enabled: boolean) => void;
 }
 
 export const Checkout: React.FC<CheckoutProps> = ({ 
-  items, 
-  sellerName,
+  sellerCarts,
+  waitlistedCarts,
   totalAmount, 
   onBack, 
-  onProceedToPayment 
+  onProceedToPayment,
+  onToggleWaitlist,
+  ecoFriendlyDelivery,
+  onToggleEcoDelivery
 }) => {
   const [selectedAddress, setSelectedAddress] = useState('home');
-  const [selectedTimeSlot, setSelectedTimeSlot] = useState('asap');
   const [paymentMethod, setPaymentMethod] = useState('online');
-
-  const deliveryFee = totalAmount > 99 ? 0 : 30;
-  const finalAmount = totalAmount + deliveryFee;
 
   const addresses = [
     {
@@ -39,20 +41,25 @@ export const Checkout: React.FC<CheckoutProps> = ({
     }
   ];
 
-  const timeSlots = [
-    { id: 'asap', label: 'ASAP (12-15 mins)', price: 0 },
-    { id: 'slot1', label: '2:00 PM - 2:30 PM', price: 0 },
-    { id: 'slot2', label: '3:00 PM - 3:30 PM', price: 0 },
-    { id: 'slot3', label: '4:00 PM - 4:30 PM', price: 0 }
-  ];
+  const getDeliveryFee = (cart: SellerCart) => {
+    const cartTotal = cart.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return cartTotal > 99 ? 0 : 30;
+  };
+
+  const getTotalDeliveryFee = () => {
+    if (ecoFriendlyDelivery) return 20; // Single delivery fee
+    return sellerCarts.reduce((total, cart) => total + getDeliveryFee(cart), 0);
+  };
+
+  const finalAmount = totalAmount + getTotalDeliveryFee();
 
   const handleProceedToPayment = () => {
     const checkoutData = {
-      items,
+      sellerCarts,
       address: addresses.find(addr => addr.id === selectedAddress),
-      timeSlot: timeSlots.find(slot => slot.id === selectedTimeSlot),
       paymentMethod,
       totalAmount: finalAmount,
+      ecoFriendlyDelivery,
       orderId: `ORD${Date.now()}`
     };
     onProceedToPayment(checkoutData);
@@ -70,12 +77,91 @@ export const Checkout: React.FC<CheckoutProps> = ({
             <h1 className="text-xl font-bold text-gray-900">
               amazon <span className="text-blue-600 font-normal italic">now</span>
             </h1>
-            <p className="text-sm text-gray-600">Checkout from {sellerName}</p>
+            <p className="text-sm text-gray-600">Checkout ({sellerCarts.length} sellers)</p>
           </div>
         </div>
       </div>
 
       <div className="px-4 py-4 space-y-6">
+        {/* Eco-Friendly Delivery Option */}
+        <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <Leaf className="h-6 w-6 text-green-600" />
+              <div>
+                <h3 className="font-bold text-green-800">Eco-Friendly Delivery</h3>
+                <p className="text-sm text-green-600">
+                  Single delivery partner picks up from all stores (+10-15 mins)
+                </p>
+              </div>
+            </div>
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                checked={ecoFriendlyDelivery}
+                onChange={(e) => onToggleEcoDelivery(e.target.checked)}
+                className="sr-only peer"
+              />
+              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+            </label>
+          </div>
+        </div>
+
+        {/* Active Orders */}
+        <div className="bg-white rounded-lg p-4 border border-gray-200">
+          <h3 className="font-bold text-gray-900 mb-4">Your Orders</h3>
+          <div className="space-y-4">
+            {sellerCarts.map((cart) => (
+              <div key={cart.sellerId} className="border border-gray-200 rounded-lg p-3">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center space-x-2">
+                    <Package className="h-5 w-5 text-blue-600" />
+                    <h4 className="font-medium text-gray-900">{cart.sellerName}</h4>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Clock className="h-4 w-4 text-green-600" />
+                    <span className="text-sm text-green-600 font-medium">
+                      {ecoFriendlyDelivery ? 'Combined delivery' : cart.deliveryTime}
+                    </span>
+                  </div>
+                </div>
+                <div className="text-sm text-gray-600 mb-2">
+                  {cart.items.length} items • ₹{cart.items.reduce((total, item) => total + (item.price * item.quantity), 0)}
+                </div>
+                <button
+                  onClick={() => onToggleWaitlist(cart.sellerId)}
+                  className="text-blue-600 text-sm hover:underline"
+                >
+                  Move to Waitlist
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Waitlisted Items */}
+        {waitlistedCarts.length > 0 && (
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+            <h3 className="font-bold text-yellow-800 mb-4">Waitlisted Orders</h3>
+            <div className="space-y-3">
+              {waitlistedCarts.map((cart) => (
+                <div key={cart.sellerId} className="flex items-center justify-between">
+                  <div>
+                    <h4 className="font-medium text-yellow-800">{cart.sellerName}</h4>
+                    <p className="text-sm text-yellow-600">{cart.items.length} items</p>
+                  </div>
+                  <button
+                    onClick={() => onToggleWaitlist(cart.sellerId)}
+                    className="text-blue-600 text-sm hover:underline"
+                  >
+                    Add Back
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Delivery Address */}
         <div className="bg-white rounded-lg p-4 border border-gray-200">
           <div className="flex items-center space-x-2 mb-3">
@@ -100,25 +186,6 @@ export const Checkout: React.FC<CheckoutProps> = ({
                 </div>
               </label>
             ))}
-          </div>
-        </div>
-
-        {/* Delivery Time */}
-        <div className="bg-white rounded-lg p-4 border border-gray-200">
-          <div className="flex items-center space-x-2 mb-3">
-            <Clock className="h-5 w-5 text-gray-600" />
-            <h3 className="font-bold text-gray-900">Delivery Time</h3>
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-              <div className="flex items-center space-x-2">
-                <Clock className="h-5 w-5 text-green-600" />
-                <div>
-                  <h4 className="font-medium text-green-800">Express Delivery</h4>
-                  <p className="text-sm text-green-600">Your order will be delivered ASAP (12-15 mins)</p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -156,22 +223,16 @@ export const Checkout: React.FC<CheckoutProps> = ({
         <div className="bg-white rounded-lg p-4 border border-gray-200">
           <h3 className="font-bold text-gray-900 mb-3">Order Summary</h3>
           <div className="space-y-2 mb-4">
-            {items.map((item) => (
-              <div key={item.id} className="flex justify-between text-sm">
-                <span className="text-gray-600">{item.name} x {item.quantity}</span>
-                <span className="font-medium">₹{item.price * item.quantity}</span>
-              </div>
-            ))}
-          </div>
-          <div className="border-t pt-3 space-y-2">
             <div className="flex justify-between">
-              <span className="text-gray-600">Subtotal</span>
+              <span className="text-gray-600">Items ({sellerCarts.reduce((total, cart) => total + cart.items.length, 0)})</span>
               <span className="font-medium">₹{totalAmount}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Delivery Fee</span>
-              <span className={`font-medium ${deliveryFee === 0 ? 'text-green-600' : ''}`}>
-                {deliveryFee === 0 ? 'FREE' : `₹${deliveryFee}`}
+              <span className="text-gray-600">
+                Delivery Fee {ecoFriendlyDelivery && <span className="text-green-600">(Eco-friendly)</span>}
+              </span>
+              <span className={`font-medium ${getTotalDeliveryFee() === 0 ? 'text-green-600' : ''}`}>
+                {getTotalDeliveryFee() === 0 ? 'FREE' : `₹${getTotalDeliveryFee()}`}
               </span>
             </div>
             <div className="border-t pt-2 flex justify-between">
@@ -184,9 +245,10 @@ export const Checkout: React.FC<CheckoutProps> = ({
         {/* Place Order Button */}
         <button
           onClick={handleProceedToPayment}
-          className="w-full bg-yellow-400 text-black py-4 rounded-lg font-bold text-lg hover:bg-yellow-500"
+          disabled={sellerCarts.length === 0}
+          className="w-full bg-yellow-400 text-black py-4 rounded-lg font-bold text-lg hover:bg-yellow-500 disabled:bg-gray-300 disabled:cursor-not-allowed"
         >
-          Proceed to Payment
+          Proceed to Payment (₹{finalAmount})
         </button>
       </div>
     </div>

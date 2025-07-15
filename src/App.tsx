@@ -27,6 +27,8 @@ export interface SellerCart {
   sellerId: string;
   sellerName: string;
   items: CartItem[];
+  deliveryTime: string;
+  isWaitlisted?: boolean;
 }
 
 function App() {
@@ -37,6 +39,7 @@ function App() {
   const [sellerCarts, setSellerCarts] = useState<SellerCart[]>([]);
   const [selectedSellerCart, setSelectedSellerCart] = useState<string>('');
   const [orderDetails, setOrderDetails] = useState<any>(null);
+  const [ecoFriendlyDelivery, setEcoFriendlyDelivery] = useState(false);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -93,12 +96,35 @@ function App() {
         return [...prev, {
           sellerId,
           sellerName: item.store,
-          items: [{ ...item, quantity: 1 }]
+          items: [{ ...item, quantity: 1 }],
+          deliveryTime: getDeliveryTime(sellerId)
         }];
       }
     });
   };
 
+  const getDeliveryTime = (sellerId: string): string => {
+    const deliveryTimes: { [key: string]: string } = {
+      'amazon': '12-15 mins',
+      'zara': '15-20 mins',
+      'zudio': '18-25 mins',
+      'mayuri-bakery': '10-15 mins',
+      'nandini': '8-12 mins',
+      'medplus': '20-30 mins',
+      'karachi-bakery': '15-20 mins'
+    };
+    return deliveryTimes[sellerId] || '15-20 mins';
+  };
+
+  const toggleWaitlist = (sellerId: string) => {
+    setSellerCarts(prev => 
+      prev.map(cart => 
+        cart.sellerId === sellerId 
+          ? { ...cart, isWaitlisted: !cart.isWaitlisted }
+          : cart
+      )
+    );
+  };
   const updateQuantity = (sellerId: string, itemId: string, quantity: number) => {
     setSellerCarts(prev => {
       return prev.map(cart => {
@@ -166,6 +192,10 @@ function App() {
     setCurrentView('checkout');
   };
 
+  const handleCheckoutAll = () => {
+    setCurrentView('checkout');
+  };
+
   const handlePayment = (checkoutData: any) => {
     setOrderDetails(checkoutData);
     setCurrentView('payment');
@@ -185,26 +215,23 @@ function App() {
         sellerCarts={sellerCarts}
         onUpdateQuantity={updateQuantity}
         onBack={handleBackToHome}
-        onCheckout={handleCheckout}
+        onCheckout={handleCheckoutAll}
         getTotalAmount={getTotalAmount}
       />
     );
   }
 
   if (currentView === 'checkout') {
-    const selectedCart = sellerCarts.find(cart => cart.sellerId === selectedSellerCart);
-    if (!selectedCart) {
-      setCurrentView('home');
-      return null;
-    }
-    
     return (
       <Checkout
-        items={selectedCart.items}
-        sellerName={selectedCart.sellerName}
-        totalAmount={getTotalAmount(selectedSellerCart)}
+        sellerCarts={sellerCarts.filter(cart => !cart.isWaitlisted)}
+        waitlistedCarts={sellerCarts.filter(cart => cart.isWaitlisted)}
+        totalAmount={getTotalAmount()}
         onBack={() => setCurrentView('cart')}
         onProceedToPayment={handlePayment}
+        onToggleWaitlist={toggleWaitlist}
+        ecoFriendlyDelivery={ecoFriendlyDelivery}
+        onToggleEcoDelivery={setEcoFriendlyDelivery}
       />
     );
   }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle, Clock, Package, Truck, MapPin } from 'lucide-react';
+import { CheckCircle, Clock, Package, Truck, MapPin, User, Phone } from 'lucide-react';
 
 interface OrderTrackingProps {
   orderDetails: any;
@@ -10,31 +10,64 @@ export const OrderTracking: React.FC<OrderTrackingProps> = ({
   orderDetails, 
   onBackToHome 
 }) => {
-  const [currentStatus, setCurrentStatus] = useState(0);
-  const [estimatedTime, setEstimatedTime] = useState(12);
+  const [sellerStatuses, setSellerStatuses] = useState<{ [key: string]: number }>({});
+  const [estimatedTimes, setEstimatedTimes] = useState<{ [key: string]: number }>({});
 
   const trackingSteps = [
-    { id: 0, title: 'Order Confirmed', description: 'Your order has been placed', icon: CheckCircle, completed: true },
-    { id: 1, title: 'Preparing', description: 'Store is preparing your order', icon: Package, completed: true },
-    { id: 2, title: 'Out for Delivery', description: 'Your order is on the way', icon: Truck, completed: false },
-    { id: 3, title: 'Delivered', description: 'Order delivered successfully', icon: MapPin, completed: false }
+    { id: 0, title: 'Order Placed', description: 'Your order has been placed', icon: CheckCircle },
+    { id: 1, title: 'Seller Accepted', description: 'Seller confirmed your order', icon: User },
+    { id: 2, title: 'Preparing', description: 'Store is preparing your order', icon: Package },
+    { id: 3, title: 'Out for Delivery', description: 'Your order is on the way', icon: Truck },
+    { id: 4, title: 'Delivered', description: 'Order delivered successfully', icon: MapPin }
+  ];
+
+  const deliveryPartners = [
+    { name: 'Rajesh Kumar', phone: '+91 98765 43210', vehicle: 'Bike' },
+    { name: 'Priya Sharma', phone: '+91 87654 32109', vehicle: 'Scooter' },
+    { name: 'Amit Singh', phone: '+91 76543 21098', vehicle: 'Bike' },
+    { name: 'Sneha Patel', phone: '+91 65432 10987', vehicle: 'Car' }
   ];
 
   useEffect(() => {
+    // Initialize seller statuses
+    const initialStatuses: { [key: string]: number } = {};
+    const initialTimes: { [key: string]: number } = {};
+    
+    orderDetails.sellerCarts.forEach((cart: any, index: number) => {
+      // Amazon starts at step 2 (no seller acceptance needed)
+      initialStatuses[cart.sellerId] = cart.sellerId === 'amazon' ? 2 : 0;
+      initialTimes[cart.sellerId] = cart.sellerId === 'amazon' ? 8 : 15;
+    });
+    
+    setSellerStatuses(initialStatuses);
+    setEstimatedTimes(initialTimes);
+
+    // Simulate progress for each seller
     const timer = setInterval(() => {
-      setCurrentStatus(prev => {
-        if (prev < 3) {
-          const newStatus = prev + 1;
-          if (newStatus === 2) setEstimatedTime(5);
-          if (newStatus === 3) setEstimatedTime(0);
-          return newStatus;
-        }
-        return prev;
+      setSellerStatuses(prev => {
+        const updated = { ...prev };
+        Object.keys(updated).forEach(sellerId => {
+          if (updated[sellerId] < 4) {
+            // Random chance to progress
+            if (Math.random() > 0.7) {
+              updated[sellerId] += 1;
+              setEstimatedTimes(prevTimes => ({
+                ...prevTimes,
+                [sellerId]: updated[sellerId] === 4 ? 0 : Math.max(0, prevTimes[sellerId] - 3)
+              }));
+            }
+          }
+        });
+        return updated;
       });
-    }, 5000);
+    }, 3000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [orderDetails]);
+
+  const getDeliveryPartner = (index: number) => {
+    return deliveryPartners[index % deliveryPartners.length];
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -47,123 +80,151 @@ export const OrderTracking: React.FC<OrderTrackingProps> = ({
       </div>
 
       <div className="px-4 py-6 space-y-6">
-        {/* Delivery Status */}
+        {/* Delivery Map Placeholder */}
         <div className="bg-white rounded-lg p-4 border border-gray-200">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h3 className="font-bold text-gray-900">
-                {currentStatus === 3 ? 'Delivered!' : `Arriving in ${estimatedTime} mins`}
-              </h3>
-              <p className="text-sm text-gray-600">
-                {orderDetails.address.address}
-              </p>
-            </div>
-            {estimatedTime > 0 && (
-              <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                {estimatedTime} mins
+          <h3 className="font-bold text-gray-900 mb-3">Live Tracking</h3>
+          <div className="bg-blue-50 rounded-lg p-6 text-center">
+            <MapPin className="h-12 w-12 text-blue-600 mx-auto mb-2" />
+            <p className="text-blue-800 font-medium">Tracking your deliveries</p>
+            <p className="text-sm text-blue-600 mt-1">
+              {orderDetails.ecoFriendlyDelivery ? 
+                'Single delivery partner collecting from all stores' : 
+                'Multiple delivery partners en route'
+              }
+            </p>
+            <div className="mt-4 flex items-center justify-between text-xs text-blue-600">
+              <div className="flex items-center">
+                <div className="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+                Store Locations
               </div>
-            )}
+              <div className="flex items-center">
+                <div className="w-2 h-2 bg-blue-500 rounded-full mr-1"></div>
+                Delivery Route
+              </div>
+              <div className="flex items-center">
+                <div className="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
+                Your Location
+              </div>
+            </div>
           </div>
+        </div>
 
-          {/* Progress Bar */}
-          <div className="mb-6">
-            {/* Horizontal Progress Bar */}
-            <div className="flex items-center justify-between mb-4">
-              {trackingSteps.map((step, index) => {
-                const IconComponent = step.icon;
-                const isCompleted = index <= currentStatus;
-                const isCurrent = index === currentStatus;
-                
-                return (
-                  <div key={step.id} className="flex flex-col items-center flex-1">
-                    <div className={`flex items-center justify-center w-10 h-10 rounded-full mb-2 ${
-                      isCompleted ? 'bg-green-500' : 'bg-gray-200'
-                    }`}>
-                      <IconComponent className={`h-5 w-5 ${
-                        isCompleted ? 'text-white' : 'text-gray-500'
-                      }`} />
-                    </div>
-                    <h4 className={`text-xs font-medium text-center ${
-                      isCompleted ? 'text-gray-900' : 'text-gray-500'
-                    }`}>
-                      {step.title}
-                    </h4>
-                    {isCurrent && (
-                      <div className="flex items-center space-x-1 mt-1">
-                        <Clock className="h-3 w-3 text-blue-500" />
-                        <span className="text-xs text-blue-500">In progress</span>
-                      </div>
-                    )}
+        {/* Seller-wise Tracking */}
+        {orderDetails.sellerCarts.map((cart: any, index: number) => {
+          const currentStatus = sellerStatuses[cart.sellerId] || 0;
+          const estimatedTime = estimatedTimes[cart.sellerId] || 0;
+          const partner = getDeliveryPartner(index);
+          const isAmazon = cart.sellerId === 'amazon';
+
+          return (
+            <div key={cart.sellerId} className="bg-white rounded-lg p-4 border border-gray-200">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className="font-bold text-gray-900">{cart.sellerName}</h3>
+                  <p className="text-sm text-gray-600">
+                    {cart.items.length} items • {currentStatus === 4 ? 'Delivered!' : `${estimatedTime} mins`}
+                  </p>
+                </div>
+                {estimatedTime > 0 && (
+                  <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                    {estimatedTime} mins
                   </div>
-                );
-              })}
-            </div>
-            
-            {/* Progress Line */}
-            <div 
-              className="relative h-2 bg-gray-200 rounded-full mx-8"
-            ></div>
-            <div 
-              className="absolute top-0 left-8 h-2 bg-green-500 rounded-full transition-all duration-1000"
-              style={{ width: `calc(${(currentStatus / 3) * 100}% - 4rem)` }}
-            ></div>
-          </div>
-          
-          {/* Current Status Description */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-              <p className="text-blue-800 font-medium">
-                {trackingSteps[currentStatus]?.description || 'Processing your order...'}
-              </p>
-            </div>
-          </div>
-        </div>
+                )}
+              </div>
 
-        {/* Order Items */}
-        <div className="bg-white rounded-lg p-4 border border-gray-200">
-          <h3 className="font-bold text-gray-900 mb-3">Order Items</h3>
-          <div className="space-y-3">
-            {orderDetails.items.map((item: any) => (
-              <div key={item.id} className="flex items-center space-x-3">
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-12 h-12 object-cover rounded-md"
-                />
-                <div className="flex-1">
-                  <h4 className="font-medium text-gray-900">{item.name}</h4>
-                  <p className="text-sm text-gray-600">{item.store} • {item.weight}</p>
+              {/* Horizontal Progress Bar */}
+              <div className="mb-4">
+                <div className="flex items-center justify-between mb-2">
+                  {trackingSteps.slice(isAmazon ? 2 : 0).map((step, stepIndex) => {
+                    const actualIndex = isAmazon ? stepIndex + 2 : stepIndex;
+                    const IconComponent = step.icon;
+                    const isCompleted = actualIndex <= currentStatus;
+                    const isCurrent = actualIndex === currentStatus;
+                    
+                    return (
+                      <div key={step.id} className="flex flex-col items-center flex-1">
+                        <div className={`flex items-center justify-center w-8 h-8 rounded-full mb-1 ${
+                          isCompleted ? 'bg-green-500' : 'bg-gray-200'
+                        }`}>
+                          <IconComponent className={`h-4 w-4 ${
+                            isCompleted ? 'text-white' : 'text-gray-500'
+                          }`} />
+                        </div>
+                        <h4 className={`text-xs font-medium text-center ${
+                          isCompleted ? 'text-gray-900' : 'text-gray-500'
+                        }`}>
+                          {step.title}
+                        </h4>
+                        {isCurrent && (
+                          <div className="flex items-center space-x-1 mt-1">
+                            <div className="w-1 h-1 bg-blue-500 rounded-full animate-pulse"></div>
+                            <span className="text-xs text-blue-500">Active</span>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
-                <div className="text-right">
-                  <p className="font-medium">₹{item.price}</p>
-                  <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
+                
+                {/* Progress Line */}
+                <div className="relative">
+                  <div className="h-1 bg-gray-200 rounded-full mx-4"></div>
+                  <div 
+                    className="absolute top-0 left-4 h-1 bg-green-500 rounded-full transition-all duration-1000"
+                    style={{ 
+                      width: `calc(${(currentStatus / (isAmazon ? 2 : 4)) * 100}% - 2rem)` 
+                    }}
+                  ></div>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
 
-        {/* Delivery Partner */}
-        <div className="bg-white rounded-lg p-4 border border-gray-200">
-          <h3 className="font-bold text-gray-900 mb-3">Delivery Partner</h3>
-          <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-              <span className="text-blue-600 font-bold">RK</span>
+              {/* Delivery Partner */}
+              <div className="bg-gray-50 rounded-lg p-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                      <span className="text-blue-600 font-bold text-sm">
+                        {partner.name.split(' ').map(n => n[0]).join('')}
+                      </span>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900">{partner.name}</h4>
+                      <p className="text-sm text-gray-600">{partner.vehicle} • {partner.phone}</p>
+                    </div>
+                  </div>
+                  <button className="bg-green-500 text-white px-3 py-1 rounded-lg text-sm font-medium flex items-center space-x-1">
+                    <Phone className="h-3 w-3" />
+                    <span>Call</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Order Items */}
+              <div className="mt-3 pt-3 border-t border-gray-200">
+                <div className="space-y-2">
+                  {cart.items.slice(0, 2).map((item: any) => (
+                    <div key={item.id} className="flex items-center space-x-2">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-8 h-8 object-cover rounded"
+                      />
+                      <span className="text-sm text-gray-600 flex-1">{item.name}</span>
+                      <span className="text-sm font-medium">x{item.quantity}</span>
+                    </div>
+                  ))}
+                  {cart.items.length > 2 && (
+                    <p className="text-sm text-gray-500">+{cart.items.length - 2} more items</p>
+                  )}
+                </div>
+              </div>
             </div>
-            <div className="flex-1">
-              <h4 className="font-medium text-gray-900">Rajesh Kumar</h4>
-              <p className="text-sm text-gray-600">Delivery Executive</p>
-            </div>
-            <button className="bg-green-500 text-white px-4 py-2 rounded-lg text-sm font-medium">
-              Call
-            </button>
-          </div>
-        </div>
+          );
+        })}
 
         {/* Action Buttons */}
         <div className="space-y-3">
-          {currentStatus === 3 && (
+          {Object.values(sellerStatuses).every(status => status === 4) && (
             <button
               onClick={onBackToHome}
               className="w-full bg-yellow-400 text-black py-3 rounded-lg font-bold hover:bg-yellow-500"
